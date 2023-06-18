@@ -1,0 +1,47 @@
+---Drop table---
+drop table userproducts;
+drop table productcategories;
+drop table usergroups;
+drop table groups;
+drop table users;
+
+---CREATE TABLE Users---
+
+CREATE TABLE Users (
+    PK_id serial PRIMARY KEY,
+    user_name varchar(255) NOT NULL,
+	login_name varchar(255) NOT NULL,
+	password varchar(255) NOT NULL,
+    date_created TIMESTAMP DEFAULT NOW(),
+	is_admin INT NOT NULL
+);
+
+---CREATE TABLE Groups---
+CREATE TABLE Groups (
+    PK_id serial PRIMARY KEY,
+    group_name varchar(255) NOT NULL,
+    date_created TIMESTAMP DEFAULT NOW()
+);
+
+---CREATE TABLE UserGroups---
+CREATE TABLE UserGroups (
+    PK_id serial PRIMARY KEY,
+	FK_user_id serial,
+	FK_group_id serial,
+    date_created TIMESTAMP DEFAULT NOW(),
+	Role INT NOT NULL,
+	FOREIGN KEY(FK_user_id) REFERENCES Users(PK_id),
+	FOREIGN KEY(FK_group_id) REFERENCES Groups(PK_id)
+);
+
+---CREATE TABLE UserProducts---
+CREATE TABLE UserProducts (
+    PK_id serial PRIMARY KEY,
+	FK_user_id serial,
+	FK_group_id serial,
+    category_name varchar(255) NOT NULL,
+	amount INT NOT NULL,
+    date_created TIMESTAMP DEFAULT NOW(),
+	FOREIGN KEY(FK_user_id) REFERENCES Users(PK_id),
+	FOREIGN KEY(FK_group_id) REFERENCES Groups(PK_id)
+);
