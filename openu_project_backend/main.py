@@ -1,10 +1,8 @@
 
-import os
-import sys
 import uuid
 
-from openu_project_backend.Responses import responses, get_price, get_category, valid_email, help_response
-from openu_project_backend.config import TOKEN, BOT_USERNAME, Category, Button, Status, Command, categories_config, categories_config_dict, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH, LOGIN_NAME_MIN_LENGTH, LOGIN_NAME_MAX_LENGTH
+from openu_project_backend.Responses import help_response
+from openu_project_backend.config import TOKEN, Command, categories_config, categories_config_dict, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH, LOGIN_NAME_MIN_LENGTH, LOGIN_NAME_MAX_LENGTH
 from openu_project_backend.backend import Database, get_categories, write_category, remove_category, valid_input
 from telegram import (
     InlineKeyboardButton,
@@ -123,6 +121,10 @@ async def error(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Inform user about what this bot can do and create group for them in DB"""
     #TODO: XXX: !NICE TO HAVE! - FIRST MESSAGE - check if new group or load existing group
+    
+    if not db.is_connected:
+        await update.message.reply_text("Thank you for adding me, DB is not resolved, my features won't work.")
+        return
     
     #get group_id and group_name (if group/private)
     group_id = update.message.chat.id #get group_id = chat_id

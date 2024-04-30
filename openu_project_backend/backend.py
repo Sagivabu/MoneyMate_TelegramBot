@@ -5,21 +5,25 @@ import string
 import psycopg2
 import pandas as pd
 import matplotlib.pyplot as plt
-from collections import defaultdict
 
 from openu_project_backend import config
 from openu_project_backend.config import categories_config
 
 class Database:
     def __init__(self):
-        self.conn = psycopg2.connect(
-            host =      config.DB_HOST,
-            database =  config.DB_DATABASE_NAME,
-            user =      config.DB_USER,
-            password =  config.DB_PASSWORD,
-            port =  int(config.DB_PORT))
-        
-        self.cur = self.conn.cursor()
+        try:
+            self.conn = psycopg2.connect(
+                host =      config.DB_HOST,
+                database =  config.DB_DATABASE_NAME,
+                user =      config.DB_USER,
+                password =  config.DB_PASSWORD,
+                port =  int(config.DB_PORT))
+            
+            self.cur = self.conn.cursor()
+            self.is_connected = True
+        except Exception as e:
+            print(f"Failed to connect DB. Some features may be locked.\t{e}")
+            self.is_connected = False
     
     # -------------------- SETs / CREATEs ------------------   
     def create_user(self, user_id, user_name, login_name, password, is_admin) -> str:

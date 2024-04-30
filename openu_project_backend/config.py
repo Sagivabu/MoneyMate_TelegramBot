@@ -18,7 +18,7 @@ DB_PORT = os.environ.get("DB_PORT")
 
 
 # telegram info
-# TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
+TOKEN = os.environ.get("TOKEN")
 
 # Commands
 class Command(Enum):

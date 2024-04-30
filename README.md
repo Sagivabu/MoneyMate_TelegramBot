@@ -1,3 +1,20 @@
+# Steps to run the bot:
+## 1. Install python and pip
+## 2. Install poetry : "pip isntall poetry"
+## 3. Install dependencies using 'poetry install' command
+## 4. Creat the bot:
+### 4.1. In Telegram find: "botfather"
+### 4.2. Click "Start" (or send '/start')
+### 4.3. Select "newbot" (or send '/newbot')
+### 4.4. Choose a name for your bot 
+### 4.5. Copy the given TOKEN from botfather
+### 4.6. Go to '.env' and paste the TOKEN there in 'TOKEN' parameter
+## 5. [OPTIONAL] Go to '.env' and edit your DB configuration. Without it some features may be locked or fail
+## 6. Run the main.py
+
+
+
+
 # How to create virtualenv?
 ## 1. Try "poetry install" command
 ## 2. if .venv folder is not created the try:
